@@ -67,6 +67,9 @@ func (r *Requester) SetCrumb(ar *APIRequest) error {
 		ar.SetHeader(crumbData["crumbRequestField"], crumbData["crumb"])
 	}
 
+	// TODO: remove after test
+	ar.SetHeader("Jenkins-Crumb","d773e0b83e8a94d54e90ceada438b6ed6e37d7067631c7f0a532c266eaefce20")
+
 	return nil
 }
 

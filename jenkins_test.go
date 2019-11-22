@@ -37,7 +37,6 @@ func TestCreateJobs(t *testing.T) {
 	assert.Equal(t, job2ID, job2.GetName())
 }
 
-
 func TestCreateNodes(t *testing.T) {
 
 	id1 := "node1_test"
@@ -113,6 +112,14 @@ func TestCreateViews(t *testing.T) {
 	assert.Equal(t, "", my_view.GetDescription())
 	assert.Equal(t, 2, len(my_view.GetJobs()))
 
+}
+
+func TestDeleteView(t *testing.T) {
+	list_view, _ := jenkins.DeleteView("test_list_view")
+	assert.NotNil(t, list_view)
+
+	my_view, _ := jenkins.DeleteView("test_my_view")
+	assert.NotNil(t, my_view)
 }
 
 func TestGetAllJobs(t *testing.T) {
@@ -263,6 +270,17 @@ func TestInstallPlugin(t *testing.T) {
 	err := jenkins.InstallPlugin("packer", "1.4")
 
 	assert.Nil(t, err, "Could not install plugin")
+}
+
+func TestDeleteJobs(t *testing.T) {
+	job1ID := "Job1_test"
+	job2ID := "job2_test"
+
+	job1, _ := jenkins.DeleteJob(job1ID)
+	assert.True(t, job1)
+
+	job2, _ := jenkins.DeleteJob(job2ID)
+	assert.True(t, job2)
 }
 
 func TestConcurrentRequests(t *testing.T) {

@@ -547,6 +547,12 @@ func (j *Jenkins) CreateView(name string, viewType string) (*View, error) {
 	return nil, errors.New(strconv.Itoa(r.StatusCode))
 }
 
+// Delete a view.
+func (j *Jenkins) DeleteView(name string) (bool, error) {
+	job := Job{Jenkins: j, Raw: new(JobResponse), Base: "/view/" + name}
+	return job.Delete()
+}
+
 func (j *Jenkins) Poll() (int, error) {
 	resp, err := j.Requester.GetJSON("/", j.Raw, nil)
 	if err != nil {
